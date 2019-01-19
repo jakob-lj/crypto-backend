@@ -9,6 +9,7 @@ var opts = {}
 //opts.jwtFromRequest = function() { return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjM2Y1Njg5MWZkMzA4OThiMGU1ODFjMiIsInVzZXJuYW1lIjoiTWFydGhlIiwiaWF0IjoxNTQ3NjY0MjA5fQ.MkTCxF-VnB4t-xqrEd2zfPUsaJo2ZQ2b8dGSfbRvDOw" };
 opts.jwtFromRequest = function(req) {
   var auth = req.headers.authorization;
+  if (auth == null) return "";
   var token = auth.split(" ")[1];
   return token;
 }

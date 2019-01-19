@@ -13,7 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post("/login", passport.authenticate('local', {failureRedirect: '/fail',
   session: false}), function(req, res) {
-    res.status(202).send(req.user.getToken());
+    response = {
+      'token':req.user.getToken(),
+    }
+    res.status(202).send(JSON.stringify(response));
 });
 
 app.get("/fail", (req, res) => {
@@ -52,6 +55,25 @@ app.get("/jsontoken", passport.authenticate('jwt', { session: false }), (req, re
   res.status(202).send("Hey " + req.user.username);
 });
 
+app.post("/user", passport.authenticate('jwt', { session: false }), (req, res) => {
+  var response;
+  User.findOne({username:req.user.username}, function(err, user) {
+    if (err == null) {
+      return user;
+    }
+    return null;
+  }).then((user) => {
+    resultUser = {};
+    resultUser.username = user.username;
+    console.log(resultUser);
+
+    res.send(JSON.stringify(resultUser));
+  }).catch(() => {
+    res.sendStatus(403);
+  });
+});
+
+
 app.get("/region", (req, res) => {
   Region.find({name:"naaame"}, function(err, regions) {
     console.log(regions);
@@ -65,6 +87,11 @@ app.post("/region", (req, res) => {
   r.user = User.findOne({});
   r.save();
   res.send("success");
+});
+
+
+app.get("/get", (req, res) => {
+  res.send("heyhey from get");
 });
 
 app.listen(8080, () => {
