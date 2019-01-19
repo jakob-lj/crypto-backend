@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 require('./app');
 const User = mongoose.model('User');
-const Region = mongoose.model('Region');
 
 const passport = require('passport');
 const bodyParser = require('body-parser');
@@ -27,30 +26,16 @@ app.get("/", (req, res) => {
   res.send("welcome");
 })
 
-app.get("/usertest", (req, res) => {
-  User.find({}, function(err, user) {
-    console.log(user);
-  });
-  console.log();
-  console.log();
-  res.send("fin");
-});
 
 app.post("/insert", (req, res) => {
-  //console.log(req.post);
-  //res.json(JSON.stringify(req));
+  // for testing with mongo
   var u = new User();
-  //u.name = req.body.name;
-  //u.setPass(req.body.password);
   u.buildUser({username:req.body.username, password:req.body.password});
   u.save();
   res.send("Inserted as " + u.name);
 });
 
-app.post("/jsontoken", passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.sendStatus(202);
-});
-
+// method for testing
 app.get("/jsontoken", passport.authenticate('jwt', { session: false }), (req, res) => {
   res.status(202).send("Hey " + req.user.username);
 });
@@ -71,27 +56,6 @@ app.post("/user", passport.authenticate('jwt', { session: false }), (req, res) =
   }).catch(() => {
     res.sendStatus(403);
   });
-});
-
-
-app.get("/region", (req, res) => {
-  Region.find({name:"naaame"}, function(err, regions) {
-    console.log(regions);
-  });
-  res.send("hey");
-});
-
-app.post("/region", (req, res) => {
-  var r = new Region();
-  r.name = "naaame";
-  r.user = User.findOne({});
-  r.save();
-  res.send("success");
-});
-
-
-app.get("/get", (req, res) => {
-  res.send("heyhey from get");
 });
 
 app.listen(8080, () => {
