@@ -13,7 +13,7 @@ opts.jwtFromRequest = function(req) {
   var token = auth.split(" ")[1];
   return token;
 }
-opts.secretOrKey = 'bestsecreteveryeah';
+opts.secretOrKey = 'secret'; // change secret
 // opts.issuer = 'accounts.examplesoft.com';
 // opts.audience = 'localhost';
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
