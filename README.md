@@ -9,5 +9,5 @@ git clone git@github.com:jakob-lj/crypto-backend.git
 ```
 2. Install mongo: https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-windows/
 3. Run index.js
+```
 npm start
-
