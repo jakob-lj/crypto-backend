@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/my_database');
+mongoose.connect('mongodb://localhost/crypto_database');
 
 // all schemas before passport
 require('./Models/User');
