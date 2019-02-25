@@ -53,11 +53,11 @@ app.post("/user", passport.authenticate('jwt', { session: false }), (req, res) =
     console.log(resultUser);
 
     res.send(JSON.stringify(resultUser));
-  }).catch(() => {
+  }).catch((e) => {
     res.sendStatus(403);
   });
 });
 
-app.listen(8080, () => {
-  console.log("Listening on 8080");
+app.listen(9000, () => {
+  console.log("Listening on 9000");
 });

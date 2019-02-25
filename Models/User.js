@@ -24,7 +24,7 @@ UserSchema.methods.verifyPassword = function(pass) {
 }
 
 UserSchema.methods.getToken = function() {
-  return jwt.sign({id: this._id, username:this.username}, 'bestsecreteveryeah');
+  return jwt.sign({id: this._id, username:this.username}, 'secret');
 }
 
 mongoose.model('User', UserSchema);
